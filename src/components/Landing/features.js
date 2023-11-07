@@ -4,7 +4,7 @@ import { Videocam, Photo, SmartToy } from '@mui/icons-material'
 
 const Features = () => {
 	return (
-		<div className="bg-white h-full float-left text-neutral-900 w-full flex items-center justify-center">
+		<div className="bg-white h-full md:h-[100vh]  float-left text-neutral-900 w-full flex items-center justify-center">
 			<div className="w-full flex items-center flex-col gap-y-[80px]">
 				<div className="flex flex-col items-center justify-center">
 					<h1 className="text-5xl font-bold text-primary">Features</h1>

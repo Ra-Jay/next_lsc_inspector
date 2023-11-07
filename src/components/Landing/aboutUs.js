@@ -6,7 +6,7 @@ import Team from '../../../public/assets/images/Team.svg'
 
 const AboutUs = () => {
 	return (
-		<div className="bg-white h-full float-left text-neutral-900 w-full flex flex-col lg:flex-row items-center justify-center">
+		<div className="bg-white h-full md:h-[100vh]  float-left text-neutral-900 w-full flex flex-col lg:flex-row items-center justify-center">
 			<div className="w-full lg:w-1/2 pr-[20px] flex items-center flex-col gap-y-[20px] text-center">
 				<h1 className="text-5xl font-bold lg:self-start ">
 					<span className="text-primary">About </span>Us
@@ -34,7 +34,7 @@ const AboutUs = () => {
 					/>
 				</div>
 			</div>
-			<div className="w-full lg:w-1/2 pl-[20px] flex items-center justify-end">
+			<div className="w-full lg:w-1/2 lg:pl-[20px] flex items-center justify-end">
 				<Image
 					src={Team}
 					alt="LSC logo"

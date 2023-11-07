@@ -140,7 +140,7 @@ const Roboflow = (props) => {
 				ref={webcamRef}
 				muted={true}
 				// mirrored={true}
-				className="absolute mx-auto mt-[50px] left-0 right-0 text-center z-10"
+				className="absolute mx-auto mt-[50px] left-0 right-0 text-center z-10 px-10 md:px-0"
 			/>
 			<canvas
 				ref={canvasRef}

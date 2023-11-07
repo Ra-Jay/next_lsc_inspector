@@ -4,7 +4,7 @@ function ImageSkeleton() {
 			role="status"
 			class="mx-auto pace-y-8 animate-pulse md:space-y-0 md:space-x-8 md:flex md:items-center"
 		>
-			<div class="flex flex-col gap-[20px] items-center justify-center w-full h-[350px] bg-gray-300 rounded sm:w-96 ">
+			<div class="flex flex-col gap-[20px] items-center justify-center w-[250px] h-[150px] bg-gray-300 rounded md:w-[500px] md:h-[350px] ">
 				<svg
 					class="w-10 h-10 text-gray-200 dark:text-gray-600"
 					aria-hidden="true"
