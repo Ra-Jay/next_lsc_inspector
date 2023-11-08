@@ -39,7 +39,7 @@ function Homepage({ children }) {
 				<div className="w-full min-h-[100vh] float-left">
 					<Nav />
 					<div className="w-full min-h-[100vh] bg-gray-100 float-left relative">
-						<div className="lg:block 2xl:block sm:hidden xs:hidden md:hidden w-[15%] min-h-[100vh] fixed float-left">
+						<div className="lg:block 2xl:block hidden xs:hidden md:hidden w-[15%] min-h-[100vh] fixed float-left">
 							<Sidebar menu={String.menu} />
 						</div>
 						<div className="lg:w-[85%] min-h-[100vh] 2xl:w-[85%] sm:w-full xs:w-full md:w-full float-left p-[20px] mt-[80px] lg:ml-[15%] 2xl:ml-[15%]">

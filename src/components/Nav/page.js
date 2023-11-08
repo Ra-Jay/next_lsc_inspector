@@ -94,6 +94,7 @@ function NavBar() {
 		setShowModal(false)
 		location.reload();
 	}
+
 	const renderContent = () => {
 		return (
 			<div>
@@ -110,7 +111,7 @@ function NavBar() {
 
 		return (
 			<div className="z-40 float-left w-full h-[80px] shadow fixed bg-[#48BF91] text-neutral-900 pl-[25px] pr-[50px]">
-				<div className="lg:block xl:block 2xl:block sm:hidden md:hidden xs:hidden">
+				<div className="lg:block xl:block 2xl:block hidden md:hidden xs:hidden">
 					<div className={'w-3/4 h-[80px] float-left content-center items-center flex href-link'}>
 						<Image
 							src={WhiteLogo}
