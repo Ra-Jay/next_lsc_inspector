@@ -300,7 +300,7 @@ const Profile = () => {
 							</div>
 						</div>
 						{isEditing && (
-							<div className="flex justify-end">
+							<div className="flex justify-center md:justify-end">
 								<Button
 									title="Save Changes"
 									style=" w-fit bg-primary text-white hover:bg-primary h-[40px] justify-center"
