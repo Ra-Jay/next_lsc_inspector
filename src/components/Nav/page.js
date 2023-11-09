@@ -29,22 +29,28 @@ function NavBar() {
 	const { refreshToken } = useRefreshToken()
 
 	const [showModal, setShowModal] = useState(false);
+	const [expired, setExpired] = useState(false);
 
 	const isInLogin = router.pathname === '/login'
 	const refresh = user?.user.refresh_token
+	configureAxios(setShowModal)
+
+
 	useEffect(() => {}, [user])
 
-	useEffect(() => {
-		const modalTimeout = setTimeout(() => {
-		  setShowModal(true);
-		}, 900000); // 15 minutes is the expiry time of the access token
-
-		return () => clearTimeout(modalTimeout); // Clean up the timeout on component unmount
-	  }, []);
-
+	useEffect(() => {console.log(showModal)}, [showModal])
 	if (isInLogin) {
 		return null
 	}
+
+	useEffect(() => {
+		const expiredTimeout = setTimeout(() => {
+		  setExpired(true);
+		  setShowModal(true); // Update showModal in NavBar
+		}, 900000);
+
+		return () => clearTimeout(expiredTimeout);
+	  }, []);
 
 	const renderDropdown = () => {
 		return (
