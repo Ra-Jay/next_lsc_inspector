@@ -88,7 +88,7 @@ const String = {
 			project_name: 'lsc-inspector' /*rocess.env.LSC_PROJECT_NAME*/,
 			api_key: 'lnVB1Fnjsd5EdDdsnMg7' /*process.env.LSC_API_KEY*/,
 			version: 1 /*process.env.LSC_VERSION*/,
-			workspace: 'intellysis',
+			workspace: 'cs346',
 			model_type: 'yolov8',
 		},
 		{
