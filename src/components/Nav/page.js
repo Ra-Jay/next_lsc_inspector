@@ -39,9 +39,6 @@ function NavBar() {
 	useEffect(() => {}, [user])
 
 	useEffect(() => {console.log(showModal)}, [showModal])
-	if (isInLogin) {
-		return null
-	}
 
 	useEffect(() => {
 		const expiredTimeout = setTimeout(() => {
@@ -51,6 +48,12 @@ function NavBar() {
 
 		return () => clearTimeout(expiredTimeout);
 	  }, []);
+
+	if (isInLogin) {
+		return null
+	}
+
+
 
 	const renderDropdown = () => {
 		return (
