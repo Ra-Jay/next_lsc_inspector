@@ -94,18 +94,20 @@ function NavBar() {
 		setShowModal(false)
 		location.reload();
 	}
+
 	const renderContent = () => {
 		return (
 			<div>
-				<div className="flex flex-col gap-y-4  items-center justify-center">Stay logged in?
-					<div className='flex gap-x-6'>
-						<Button title="Yes" style=" w-[100px] bg-primary text-white hover:bg-primary h-[40px] justify-center" onClick={handleStayLoggedIn}></Button>
-						<Button title="Logout" style=" w-[100px] bg-tertiary text-white hover:bg-primary h-[40px] justify-center" onClick={() => logout()}></Button>
+				<div className="flex flex-col gap-y-12  items-center justify-center w-[300px]">Stay logged in?
+					<div className='flex gap-x-32'>
+						<Button title="Yes" style=" w-[100px] bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white  h-[40px] justify-center" onClick={handleStayLoggedIn}></Button>
+						<Button title="Logout" style=" w-[100px] bg-primary text-white hover:bg-primary h-[40px] justify-center" onClick={() => logout()}></Button>
 					</div>
 				</div>
 			</div>
 		)
 	}
+
 	const renderAuthorizedNav = () => {
 
 		return (
@@ -152,7 +154,10 @@ function NavBar() {
 					{renderDropdown()}
 				</div>
 				{showModal && (
-					<Modal title="Your session has expired!" content={renderContent}></Modal>
+					<Modal title="Your session has expired!"
+					content={renderContent}
+					style=" w-[300px]"
+					></Modal>
 				)}
 			</div>
 		)
