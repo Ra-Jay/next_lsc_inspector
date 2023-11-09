@@ -29,22 +29,31 @@ function NavBar() {
 	const { refreshToken } = useRefreshToken()
 
 	const [showModal, setShowModal] = useState(false);
+	const [expired, setExpired] = useState(false);
 
 	const isInLogin = router.pathname === '/login'
 	const refresh = user?.user.refresh_token
+	configureAxios(setShowModal)
+
+
 	useEffect(() => {}, [user])
 
-	useEffect(() => {
-		const modalTimeout = setTimeout(() => {
-		  setShowModal(true);
-		}, 900000); // 15 minutes is the expiry time of the access token
+	useEffect(() => {console.log(showModal)}, [showModal])
 
-		return () => clearTimeout(modalTimeout); // Clean up the timeout on component unmount
+	useEffect(() => {
+		const expiredTimeout = setTimeout(() => {
+		  setExpired(true);
+		  setShowModal(true); // Update showModal in NavBar
+		}, 900000);
+
+		return () => clearTimeout(expiredTimeout);
 	  }, []);
 
 	if (isInLogin) {
 		return null
 	}
+
+
 
 	const renderDropdown = () => {
 		return (
@@ -98,15 +107,16 @@ function NavBar() {
 	const renderContent = () => {
 		return (
 			<div>
-				<div className="flex flex-col gap-y-4  items-center justify-center">Stay logged in?
-					<div className='flex gap-x-6'>
-						<Button title="Yes" style=" w-[100px] bg-primary text-white hover:bg-primary h-[40px] justify-center" onClick={handleStayLoggedIn}></Button>
-						<Button title="Logout" style=" w-[100px] bg-tertiary text-white hover:bg-primary h-[40px] justify-center" onClick={() => logout()}></Button>
+				<div className="flex flex-col gap-y-12  items-center justify-center w-[300px]">Stay logged in?
+					<div className='flex gap-x-32'>
+						<Button title="Yes" style=" w-[100px] bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white  h-[40px] justify-center" onClick={handleStayLoggedIn}></Button>
+						<Button title="Logout" style=" w-[100px] bg-primary text-white hover:bg-primary h-[40px] justify-center" onClick={() => logout()}></Button>
 					</div>
 				</div>
 			</div>
 		)
 	}
+
 	const renderAuthorizedNav = () => {
 
 		return (
@@ -153,7 +163,10 @@ function NavBar() {
 					{renderDropdown()}
 				</div>
 				{showModal && (
-					<Modal title="Your session has expired!" content={renderContent}></Modal>
+					<Modal title="Your session has expired!"
+					content={renderContent}
+					style=" w-[300px]"
+					></Modal>
 				)}
 			</div>
 		)

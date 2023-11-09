@@ -9,7 +9,6 @@ import configureAxios from '@configureAxios'
 
 const inter = Inter({ subsets: ['latin'] })
 
-configureAxios()
 export default function Client({ children }) {
 	return (
 		<body className={inter.className}>
