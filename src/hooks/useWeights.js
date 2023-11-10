@@ -3,12 +3,12 @@
 import { useState, useEffect } from 'react'
 import WeightsService from '@services/WeightsService'
 
-const useWeights = (token) => {
-	const [isCreating, setIsCreating] = useState(false)
+const useWeights = (token, id, callback) => {
+	const [isRetrieving, setIsRetrieving] = useState(false)
 	const [weights, setWeights] = useState(null)
 
 	const deleteWeight = async ({ id, callback }) => {
-		setIsCreating(true)
+		setIsRetrieving(true)
 
 		let responseCode
 		let createdWeight
@@ -35,18 +35,18 @@ const useWeights = (token) => {
 				break
 		}
 
-		setIsCreating(false)
+		setIsRetrieving(false)
 	}
 
 	useEffect(() => {
-		const getWeights = async ({ token, callback }) => {
-			setIsCreating(true)
+		const getWeights = async () => {
+			setIsRetrieving(true)
 
 			let responseCode
 			let retrievedWeights
 
 			try {
-				const { status, data } = await WeightsService.getAll(token)
+				const { status, data } = await WeightsService.getAll(token, id)
 
 				responseCode = status
 				retrievedWeights = data
@@ -67,13 +67,13 @@ const useWeights = (token) => {
 					break
 			}
 
-			setIsCreating(false)
+			setIsRetrieving(false)
 		}
 		getWeights()
 	}, [])
 
 	const fetchWeights = async ({ callback }) => {
-		setIsCreating(true)
+		setIsRetrieving(true)
 
 		let responseCode
 		let retrievedWeights
@@ -99,10 +99,10 @@ const useWeights = (token) => {
 				break
 		}
 
-		setIsCreating(false)
+		setIsRetrieving(false)
 	}
 
-	return { isCreating, weights, fetchWeights, deleteWeight }
+	return { isRetrieving, weights, fetchWeights, deleteWeight }
 }
 
 export default useWeights
