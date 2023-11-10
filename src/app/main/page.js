@@ -331,17 +331,14 @@ const Main = () => {
 	const renderModelModalContent = () => {
 		return (
 			<div>
-				<ul>
-					<li className="px-[10px] py-[10px] bg-primary bg-opacity-20 border-y flex justify-between hover:bg-primary hover:bg-opacity-30 cursor-pointer">
-						<div>
-							<span>Laser Soldering</span>
-							<span className="text-primary ml-3">(active model)</span>
-						</div>
-						<SvgIcon
-							component={Delete}
-							className="hover:text-red-500 cursor-pointer"
-						/>
-					</li>
+				<span className="mb-6 px-[10px] py-[10px] font-bold bg-primary bg-opacity-20 border-y flex justify-between hover:bg-primary hover:bg-opacity-30 cursor-pointer">
+					<div>
+						<span>Laser Soldering</span>
+						<span className="text-primary ml-3">(active model)</span>
+					</div>
+				</span>
+				<span className="font-bold text-gray-600">Available Models: </span>
+				<ul className="mt-2 ">
 					<li className="px-[10px] py-[10px] border-b flex justify-between hover:bg-secondary hover:bg-opacity-20 cursor-pointer">
 						<span>Body Parts</span>
 						<SvgIcon
