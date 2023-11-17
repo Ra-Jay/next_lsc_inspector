@@ -287,19 +287,21 @@ const Profile = () => {
 								/>
 							</div>
 						</div>
-						<div className="flex mb-24 mr-4">
-							<div className="w-1/2 mr-4">
-								<div className="flex items-center h-5 justify-end  mt-[-5px]">
-									<span
-										className="text-sm font-light text-gray-500 hover:underline cursor-pointer text-[12px] !pr-[-2px]"
-										onClick={() => setIsModalOpen(!isModalOpen)}
-									>
-										Change Password
-									</span>
+						{isEditing && (
+						<>
+							<div className="flex mb-24 mr-4">
+								<div className="w-1/2 mr-4">
+									<div className="flex items-center h-5 justify-end  mt-[-5px]">
+										<span
+											className="text-sm font-light text-gray-500 hover:underline cursor-pointer text-[12px] !pr-[-2px]"
+											onClick={() => setIsModalOpen(!isModalOpen)}
+										>
+											Change Password
+										</span>
+									</div>
 								</div>
 							</div>
-						</div>
-						{isEditing && (
+
 							<div className="flex justify-end">
 								<Button
 									title="Save Changes"
@@ -310,7 +312,7 @@ const Profile = () => {
 									}}
 								/>
 							</div>
-						)}
+						</>)}
 					</div>
 				</form>
 			</div>
