@@ -86,7 +86,7 @@ const Main = () => {
 			})
 		},
 		internalError: () => {
-			errorToast('Inter Server ERROR!')
+			errorToast('Invalid API key!')
 			setIsModalOpen(true)
 			setErrors({
 				overall: 'This API key does not exist (or has been revoked).',
@@ -128,7 +128,7 @@ const Main = () => {
 			setIsModalOpen(true)
 		},
 		internalError: () => {
-			errorToast('Internal Server ERROR')
+			errorToast('Invalid API key')
 			setIsModalOpen(true)
 			setErrors({
 				overall: 'This API key does not exist (or has been revoked).',
