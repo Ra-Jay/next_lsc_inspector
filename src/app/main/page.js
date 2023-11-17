@@ -22,7 +22,8 @@ import useUserStore from '../../useStore'
 import useUpload from '@hooks/useUpload'
 import useAnalyze from '@hooks/useAnalyze'
 import useCreateWeight from '@hooks/useCreateWeight'
-import useWeight from '@hooks/useWeight'
+import useWeights from '@hooks/useWeights'
+import useDeleteWeight from '@hooks/useDeleteWeight'
 
 const Main = () => {
 	const [isModalOpen, setIsModalOpen] = useState(true)
@@ -30,9 +31,8 @@ const Main = () => {
 	const { uploadFile } = useUpload()
 	const { analyzeFile } = useAnalyze()
 	const { isCreating, createWeight } = useCreateWeight(user?.user.access_token)
-	// const { isRetrieving, weights } = useWeight(user?.user.access_token, user?.user.id)
-
-	// const { isRetrieving, weights, fetchWeights, deleteWeight } = useWeights(user?.user.access_token, user?.user.id)
+	const { isRetrieving, weights } = useWeights(user?.user.access_token)
+	const { isDeleting, deleteWeight } = useDeleteWeight()
 
 	const [file, setFile] = useState(null)
 	const [uploadedImage, setUploadedImage] = useState(null)
@@ -41,6 +41,7 @@ const Main = () => {
 	const [selectedIndex, setSelectedIndex] = useState(null)
 	const [selectedModel, setSelectedModel] = useState(null)
 	const [selected, setSelected] = useState(0)
+	const [modelToBeDeleted, setModelToBeDeleted] = useState(null)
 	const [toggleButton, setToggleButton] = useState(false)
 	const [loading, setLoading] = useState(false)
 	const [isModelModalOpen, setIsModelModalOpen] = useState(false)
@@ -159,6 +160,18 @@ const Main = () => {
 				type: 'custom',
 				callback: weightsCallbacks,
 			})
+		}
+	}
+
+	const deleteItem = async (id) => {
+		if (weights.length >= 2) {
+			if (modelToBeDeleted) {
+				await deleteWeight({ token: user?.user.access_token, id: id, callback: deleteItemCallbacks })
+			}
+			setReload(true)
+			setSelected(null)
+		} else {
+			errorToast('You need at least 1 model active!')
 		}
 	}
 
@@ -331,13 +344,31 @@ const Main = () => {
 	const renderModelModalContent = () => {
 		return (
 			<div>
-				<span className="mb-6 px-[10px] py-[10px] font-bold bg-primary bg-opacity-20 border-y flex justify-between hover:bg-primary hover:bg-opacity-30 cursor-pointer">
-					<div>
-						<span>Laser Soldering</span>
-						<span className="text-primary ml-3">(active model)</span>
-					</div>
-				</span>
+				{!isRetrieving &&
+					weights &&
+					weights.map((item, index) => (
+						<div
+							key={index}
+							className="mb-6 px-[10px] py-[10px] font-bold bg-primary bg-opacity-20 border-y flex justify-between hover:bg-primary hover:bg-opacity-30 cursor-pointer"
+						>
+							<div>
+								<span>{item.project_name}</span>
+								<span className="text-primary ml-3">(active model)</span>
+							</div>
+							<SvgIcon
+								component={Delete}
+								className="hover:text-red-500 cursor-pointer"
+								onClick={() => deleteItem(item.id)}
+							/>
+						</div>
+					))}
 				<span className="font-bold text-gray-600">Available Models: </span>
+				<ul className="mt-2 ">
+					<li className="px-[10px] py-[10px] border-b flex justify-between cursor-pointer">
+						<span>N/A</span>
+					</li>
+				</ul>
+				{/* 
 				<ul className="mt-2 ">
 					<li className="px-[10px] py-[10px] border-b flex justify-between hover:bg-secondary hover:bg-opacity-20 cursor-pointer">
 						<span>Body Parts</span>
@@ -353,7 +384,7 @@ const Main = () => {
 							className="hover:text-red-500 cursor-pointer"
 						/>
 					</li>
-				</ul>
+				</ul> */}
 			</div>
 		)
 	}
