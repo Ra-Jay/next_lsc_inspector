@@ -2,7 +2,7 @@ function WebcamSkeleton() {
 	return (
 		<div
 			role="status"
-			className="flex items-center justify-center h-[500px] lg:w-[60%] md:w-[80%] sm:w-full xs:w-full  bg-gray-300 rounded-lg animate-pulse"
+			className="flex items-center justify-center h-[250px] lg:w-[60%] md:h-[500px] md:w-[80%] w-full bg-gray-300 rounded-lg animate-pulse"
 		>
 			<svg
 				className="w-10 h-10 text-gray-200"

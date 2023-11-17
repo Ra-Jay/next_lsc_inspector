@@ -28,23 +28,32 @@ function NavBar() {
 	const { user, logout } = useUserStore()
 	const { refreshToken } = useRefreshToken()
 
-	const [showModal, setShowModal] = useState(false)
+	const [showModal, setShowModal] = useState(false);
+	const [expired, setExpired] = useState(false);
 
 	const isInLogin = router.pathname === '/login'
 	const refresh = user?.user.refresh_token
+	configureAxios(setShowModal)
+
+
 	useEffect(() => {}, [user])
 
-	useEffect(() => {
-		const modalTimeout = setTimeout(() => {
-			setShowModal(true)
-		}, 900000) // 15 minutes is the expiry time of the access token
+	useEffect(() => {console.log(showModal)}, [showModal])
 
-		return () => clearTimeout(modalTimeout) // Clean up the timeout on component unmount
-	}, [])
+	useEffect(() => {
+		const expiredTimeout = setTimeout(() => {
+		  setExpired(true);
+		  setShowModal(true); // Update showModal in NavBar
+		}, 900000);
+
+		return () => clearTimeout(expiredTimeout);
+	  }, []);
 
 	if (isInLogin) {
 		return null
 	}
+
+
 
 	const renderDropdown = () => {
 		return (
@@ -120,7 +129,7 @@ function NavBar() {
 	const renderAuthorizedNav = () => {
 		return (
 			<div className="z-40 float-left w-full h-[80px] shadow fixed bg-[#48BF91] text-neutral-900 pl-[25px] pr-[50px]">
-				<div className="lg:block xl:block 2xl:block sm:hidden md:hidden xs:hidden">
+				<div className="lg:block xl:block 2xl:block hidden md:hidden xs:hidden">
 					<div className={'w-3/4 h-[80px] float-left content-center items-center flex href-link'}>
 						<Image
 							src={WhiteLogo}

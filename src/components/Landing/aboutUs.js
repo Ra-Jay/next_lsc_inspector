@@ -6,9 +6,9 @@ import Team from '../../../public/assets/images/Team.svg'
 
 const AboutUs = () => {
 	return (
-		<div className="bg-white h-[100vh] float-left text-neutral-900 w-full flex items-center justify-center">
-			<div className="w-1/2 pr-[20px] flex items-center flex-col gap-y-[20px]">
-				<h1 className="text-2xl lg:text-5xl font-bold self-start">
+		<div className="bg-white h-full md:h-[100vh]  float-left text-neutral-900 w-full flex flex-col lg:flex-row items-center justify-center">
+			<div className="w-full lg:w-1/2 pr-[20px] flex items-center flex-col gap-y-[20px] text-center">
+				<h1 className="text-5xl font-bold lg:self-start ">
 					<span className="text-primary">About </span>Us
 				</h1>
 
@@ -23,7 +23,7 @@ const AboutUs = () => {
 					desire to make a positive impact in the world. Thank you for taking the time to get to know us better. We look forward to sharing our story,
 					our vision, and our commitment to excellence with you.
 				</span>
-				<div className="w-full mt-[50px]">
+				<div className="w-full mt-[50px] flex justify-center lg:justify-start">
 					<Button
 						title="More Info"
 						style=" w-fit justify-center text-white bg-gradient-to-r from-primary to-secondary font-bold w-[30%]"
@@ -34,7 +34,7 @@ const AboutUs = () => {
 					/>
 				</div>
 			</div>
-			<div className="w-1/2 pl-[20px] flex items-center justify-end">
+			<div className="w-full lg:w-1/2 lg:pl-[20px] flex items-center justify-end">
 				<Image
 					src={Team}
 					alt="LSC logo"

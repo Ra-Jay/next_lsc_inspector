@@ -56,7 +56,7 @@ const Dashboard = () => {
 							>
 								See all
 							</span>
-							<div className="w-full h-fit grid grid-cols-3 gap-4">
+							<div className="w-full h-fit grid grid-cols-1 gap-4 md:grid-cols-3">
 								{recentFiles &&
 									recentFiles.map((item, index) => (
 										<ResultCard

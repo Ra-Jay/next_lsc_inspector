@@ -1,8 +1,7 @@
 import axios from 'axios'
 import config from '@services/config'
 
-
- const configureAxios = () => {
+ const configureAxios = (setShowModal) => {
   axios.defaults.baseURL = config.API_URL
   axios.defaults.timeout = 40000
   axios.defaults.headers.common['Content-Type'] = 'application/json'
@@ -33,45 +32,12 @@ import config from '@services/config'
   )
 
   axios.interceptors.response.use(null, async (error) => {
-    //const originalRequest = error.config;
-    if ( error.response && error.response.status === 401 /*&& !originalRequest._retry */) {
-      console.log("EXPIRED TOKEN!")
-      // Attempt to refresh the token
-      if (typeof localStorage !== "undefined") {
-        const userData = JSON.parse(localStorage.getItem('userAuth'))
-        const refreshToken = userData.state.user.user.refresh_token
-        try {
-          const response = await axios.get(`${config.API_URL}/users/token/refresh`, {
-            headers: {
-              Authorization: `Bearer ${refreshToken}`,
-              'Content-Type': 'application/json'
-          }});
-          const newAccessToken = response.data.access
-
-          // Update the access token in local storage
-          userData.state.user.user.access_token = newAccessToken
-          userData.state.token = newAccessToken
-          console.log(userData)
-          localStorage.setItem('userAuth', JSON.stringify(userData))
-          location.reload();
-          // Retry the original request
-         // originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
-          //return configureAxios(originalRequest);
-          return Promise.resolve(response);
-        } catch (refreshError) {
-          // If token refresh fails, redirect to login or handle it as per your app's requirements
-          // For example:
-          if (refreshError.response.status === 401) {
-            // Redirect to login page
-            // window.location.href = '/login';
-          }
-
-          return Promise.reject(refreshError);
-        }
-      }
+    if (error.response && error.response.status === 401) {
+      console.log("Expired Token!")
+      setShowModal(true); // Update showModal in NavBar
+      return Promise.reject(error);
     }
-
-    return Promise.reject(error)
-  })
+    return Promise.reject(error);
+  });
 }
 export default configureAxios;
