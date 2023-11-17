@@ -13,9 +13,11 @@ const useDeleteWeight = () => {
 		let deletedWeight
 		if (id) {
 			try {
-				const { status, data } = await WeightsService.deleteById(token, id)
+				const { status, data } = await WeightsService.delete(token, id)
 				responseCode = status
 				deletedWeight = data
+				console.log(token)
+				console.log(id)
 			} catch (error) {
 				console.error('Error deleting Weight:', error)
 				responseCode = error.response

@@ -56,7 +56,6 @@ const Main = () => {
 	const [errors, setErrors] = useState(null)
 
 	const handleFileUpload = async () => {
-		console.log()
 		if (file) {
 			setLoading(true)
 			const formData = new FormData()
@@ -163,13 +162,17 @@ const Main = () => {
 		}
 	}
 
+	const deleteItemCallbacks = {
+		success: () => successToast('Successfully deleted!'),
+		notFound: () => errorToast('Invalid Fields!'),
+		internalError: () => errorToast('Internal Server ERROR!'),
+	}
+
 	const deleteItem = async (id) => {
 		if (weights.length >= 2) {
-			if (modelToBeDeleted) {
+			if (id) {
 				await deleteWeight({ token: user?.user.access_token, id: id, callback: deleteItemCallbacks })
 			}
-			setReload(true)
-			setSelected(null)
 		} else {
 			errorToast('You need at least 1 model active!')
 		}

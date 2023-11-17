@@ -10,7 +10,12 @@ const WeightsService = {
 				Authorization: `Bearer ${token}`,
 			},
 		}),
-	delete: (id) => axios.delete(`${BASE_URL}/${id}/delete`),
+	delete: (token, id) =>
+		axios.delete(`${BASE_URL}/${id}/delete`, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		}),
 	getAll: (token) =>
 		axios.get(`${BASE_URL}/`, {
 			headers: {
