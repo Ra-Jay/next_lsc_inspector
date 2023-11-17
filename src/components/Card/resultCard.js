@@ -8,7 +8,7 @@ const ResultCard = (props) => {
 			onClick={props.onClick()}
 		>
 			<div className="flex justify-between">
-				<span className="text-xl font-bold">{props.data.name}</span>
+				<span className="text-xl font-bold break-words max-w-[100%] ">{props.data.name}</span>
 				{/* <span className="text-primary">Successful</span> */}
 			</div>
 			<div className="w-full flex flex-col gap-2">

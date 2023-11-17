@@ -28,9 +28,10 @@ const Page = ({ params }) => {
 							alt="result"
 							width={500}
 							height={100}
-							style={{ height: 'auto', maxHeight: '350px', maxWidth: '600px' }}
+							className="max-h-[200px] max-w-[500px] md:max-h-[350px] md:max-w-[600px] w-full h-auto	"
+							//style={{ height: 'auto', maxHeight: '350px', maxWidth: '600px' }}
 						/>
-						<div className="w-full flex flex-col gap-[10px] overflow-hidden">
+						<div className="w-full max-h-[90vh] max-w-[90vw]  md:max-w-[100vw] md:max-h-[100vh] flex flex-col gap-[10px] overflow-hidden">
 							<div>
 								<b>Classification: </b>
 

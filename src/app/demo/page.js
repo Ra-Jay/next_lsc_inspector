@@ -140,13 +140,14 @@ const Demo = () => {
 									<Image
 										src={uploadedFile?.url}
 										alt="upload image"
-										width={500}
-										height={100}
-										style={{ height: 'auto', maxHeight: '350px', maxWidth: '600px' }}
+										width={500} // Set a default width (in pixels)
+										height={100} // Set a default height (in pixels)
+										layout="responsive" // Set layout to responsive
+										style={{ maxHeight: '350px', maxWidth: '600px' }}
 									/>
 									<Button
 										title="Analyze"
-										style=" bg-primary bg-opacity-80 text-white hover:bg-primary hover:bg-opacity-100 w-[500px]"
+										style=" bg-primary bg-opacity-80 text-white hover:bg-primary hover:bg-opacity-100 w-[250px] md:w-[500px]"
 										onClick={analyzeImage}
 										loading={isAnalyzing}
 									/>
@@ -155,7 +156,7 @@ const Demo = () => {
 						)}
 
 						{loading && (
-							<div className="w-full flex flex-col gap-x-1 items-left justify-between mb-4 h-fit rounded shadow p-6 mt-10">
+							<div className="w-full md:w-full flex flex-col gap-x-1 items-left justify-between mb-4 h-fit rounded shadow p-6 mt-10">
 								<ImageSkeleton title={'analyzing image...'} />
 							</div>
 						)}
@@ -170,7 +171,7 @@ const Demo = () => {
 									}}
 								/>
 
-								<div className="flex relative items-center gap-[20px]">
+								<div className="flex relative items-center gap-[20px] mt-5">
 									<Image
 										src={file?.url}
 										alt="result image"

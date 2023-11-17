@@ -5,12 +5,12 @@ const Card = (props) => {
 				<spa className="font-bold">{props.title}</spa>
 				<span className="text-primary">+3.12%</span>
 			</div>
-			<div className="h-2/3 flex items-center justify-between">
+			<div className="h-2/3 flex items-center justify-between gap-2">
 				<div className="h-full flex items-center gap-2">
-					<span className="text-xl font-bold">{props.data?.length} </span>
-					<span>images</span>
+					<span className="text-sm md:text-xl font-bold">{props.data?.length} </span>
+					<span className="text-sm md:text-xl">images</span>
 				</div>
-				<div className="h-full flex items-center text-xl">{((props.data?.length / props.total) * 100).toFixed(0)}%</div>
+				<div className="h-full flex items-center text-sm md:text-xl">{((props.data?.length / props.total) * 100).toFixed(0)}%</div>
 			</div>
 		</div>
 	)

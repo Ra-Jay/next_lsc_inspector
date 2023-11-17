@@ -63,7 +63,7 @@ const Signup = () => {
 	}
 
 	return (
-		<div className="bg-gradient-to-r from-primary to-secondary w-full h-[100vh] float-left px-[200px]">
+		<div className="bg-gradient-to-r from-primary to-secondary w-full h-[100vh] float-left px-5 md:px-[200px]">
 			<div className=" h-[100vh] float-left text-neutral-900 w-full flex flex-col gap-10 items-center justify-center">
 				<SvgIcon
 					component={ArrowBack}
