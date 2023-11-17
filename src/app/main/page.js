@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { saveAs } from 'file-saver'
 import { SvgIcon } from '@mui/material'
-import { Delete } from '@mui/icons-material'
+import { Add, Delete } from '@mui/icons-material'
 
 import Container from '@components/container'
 import Button from '@components/Button/page'
@@ -346,7 +346,17 @@ const Main = () => {
 
 	const renderModelModalContent = () => {
 		return (
-			<div>
+			<div className="flex flex-col">
+				<div
+					className="flex items-center w-fit self-end text-secondary cursor-pointer hover:underline mb-[20px]"
+					onClick={() => setIsModalOpen(true)}
+				>
+					<SvgIcon
+						component={Add}
+						fontSize="small"
+					/>
+					<span>Add model</span>
+				</div>
 				{!isRetrieving &&
 					weights &&
 					weights.map((item, index) => (
@@ -371,23 +381,6 @@ const Main = () => {
 						<span>N/A</span>
 					</li>
 				</ul>
-				{/* 
-				<ul className="mt-2 ">
-					<li className="px-[10px] py-[10px] border-b flex justify-between hover:bg-secondary hover:bg-opacity-20 cursor-pointer">
-						<span>Body Parts</span>
-						<SvgIcon
-							component={Delete}
-							className="hover:text-red-500 cursor-pointer"
-						/>
-					</li>
-					<li className="px-[10px] py-[10px] border-b flex justify-between hover:bg-secondary hover:bg-opacity-20 cursor-pointer">
-						<span>weight 1</span>
-						<SvgIcon
-							component={Delete}
-							className="hover:text-red-500 cursor-pointer"
-						/>
-					</li>
-				</ul> */}
 			</div>
 		)
 	}
