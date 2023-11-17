@@ -115,12 +115,12 @@ const Login = () => {
 									}}
 								/>
 								<div className="flex items-center h-5 justify-end mt-[10px]">
-									<Link
+									{/* <Link
 										href="forgot-password"
 										className="text-sm font-light text-gray-500 hover:underline text-[12px]"
 									>
 										Forgot password?{' '}
-									</Link>
+									</Link> */}
 								</div>
 							</div>
 							<Button
@@ -139,11 +139,11 @@ const Login = () => {
 									}
 								}}
 							/>
-							<Button
+							{/* <Button
 								title="Login with Google"
 								style=" w-full bg-primary border border-gray-300 hover:bg-gray-50 h-[39px] bg-white text-gray-500"
 								onClick={() => {}}
-							/>
+							/> */}
 							<p className="text-sm font-light text-gray-500 pt-[20px]">
 								Dont have an account?{' '}
 								<Link

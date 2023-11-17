@@ -205,11 +205,11 @@ const Signup = () => {
 									}
 								}}
 							/>
-							<Button
+							{/* <Button
 								title="Login with Google"
 								style=" w-full bg-primary border border-gray-300 hover:bg-gray-50 h-[39px] bg-white text-gray-500"
 								onClick={() => {}}
-							/>
+							/> */}
 							{/* <Image
 									src={Google}
 									alt="Google Logo"

@@ -2,7 +2,10 @@
 
 import React, { useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { saveAs } from 'file-saver'
+import { SvgIcon } from '@mui/material'
+import { Delete } from '@mui/icons-material'
 
 import Container from '@components/container'
 import Button from '@components/Button/page'
@@ -19,6 +22,7 @@ import useUserStore from '../../useStore'
 import useUpload from '@hooks/useUpload'
 import useAnalyze from '@hooks/useAnalyze'
 import useCreateWeight from '@hooks/useCreateWeight'
+import useWeight from '@hooks/useWeight'
 
 const Main = () => {
 	const [isModalOpen, setIsModalOpen] = useState(true)
@@ -26,6 +30,9 @@ const Main = () => {
 	const { uploadFile } = useUpload()
 	const { analyzeFile } = useAnalyze()
 	const { isCreating, createWeight } = useCreateWeight(user?.user.access_token)
+	// const { isRetrieving, weights } = useWeight(user?.user.access_token, user?.user.id)
+
+	// const { isRetrieving, weights, fetchWeights, deleteWeight } = useWeights(user?.user.access_token, user?.user.id)
 
 	const [file, setFile] = useState(null)
 	const [uploadedImage, setUploadedImage] = useState(null)
@@ -36,6 +43,7 @@ const Main = () => {
 	const [selected, setSelected] = useState(0)
 	const [toggleButton, setToggleButton] = useState(false)
 	const [loading, setLoading] = useState(false)
+	const [isModelModalOpen, setIsModelModalOpen] = useState(false)
 
 	const [projectName, setProjectName] = useState(null)
 	const [apiKey, setApiKey] = useState(null)
@@ -78,7 +86,7 @@ const Main = () => {
 			})
 		},
 		internalError: () => {
-			errorToast('Inter Server ERROR!')
+			errorToast('Invalid API key!')
 			setIsModalOpen(true)
 			setErrors({
 				overall: 'This API key does not exist (or has been revoked).',
@@ -120,7 +128,7 @@ const Main = () => {
 			setIsModalOpen(true)
 		},
 		internalError: () => {
-			errorToast('Internal Server ERROR')
+			errorToast('Invalid API key')
 			setIsModalOpen(true)
 			setErrors({
 				overall: 'This API key does not exist (or has been revoked).',
@@ -191,7 +199,17 @@ const Main = () => {
 				</div>
 				{useCustomWeight && (
 					<div className="flex flex-col">
-						<h1 className="font-bold text-[20px]">Use your own model</h1>
+						<h1 className="font-bold text-[20px]">
+							Use your own model
+							<Link
+								href="http://localhost:3000/docs"
+								rel="noopener noreferrer"
+								target="_blank"
+								className="text-sm font-normal ml-3 text-blue-400 hover:underline"
+							>
+								Need Help?
+							</Link>
+						</h1>
 						<span className="text-gray-400">You can add your own custom dataset to be used in the AI model.</span>
 						<div className="w-full py-4 flex flex-col gap-4">
 							<div>
@@ -252,7 +270,7 @@ const Main = () => {
 								<label className="block mb-2 text-sm font-medium text-gray-900">Workspace</label>
 								<TextInput
 									type="text"
-									placeholder="intellysis"
+									placeholder="cs346"
 									value={workspace}
 									onChange={(workspace) => {
 										setErrors(null)
@@ -310,6 +328,36 @@ const Main = () => {
 		)
 	}
 
+	const renderModelModalContent = () => {
+		return (
+			<div>
+				<span className="mb-6 px-[10px] py-[10px] font-bold bg-primary bg-opacity-20 border-y flex justify-between hover:bg-primary hover:bg-opacity-30 cursor-pointer">
+					<div>
+						<span>Laser Soldering</span>
+						<span className="text-primary ml-3">(active model)</span>
+					</div>
+				</span>
+				<span className="font-bold text-gray-600">Available Models: </span>
+				<ul className="mt-2 ">
+					<li className="px-[10px] py-[10px] border-b flex justify-between hover:bg-secondary hover:bg-opacity-20 cursor-pointer">
+						<span>Body Parts</span>
+						<SvgIcon
+							component={Delete}
+							className="hover:text-red-500 cursor-pointer"
+						/>
+					</li>
+					<li className="px-[10px] py-[10px] border-b flex justify-between hover:bg-secondary hover:bg-opacity-20 cursor-pointer">
+						<span>weight 1</span>
+						<SvgIcon
+							component={Delete}
+							className="hover:text-red-500 cursor-pointer"
+						/>
+					</li>
+				</ul>
+			</div>
+		)
+	}
+
 	return (
 		<>
 			<Container>
@@ -341,6 +389,15 @@ const Main = () => {
 							</div>
 						</li>
 					</ul>
+
+					<div className="float-right my-[20px] mr-[10px] hover:underline decoration-primary cursor-pointer">
+						<span
+							className="text-primary font-bold "
+							onClick={() => setIsModelModalOpen(!isModelModalOpen)}
+						>
+							My models
+						</span>
+					</div>
 					{user && user.weights.length == 0 && isAuthenticated && isModalOpen && (
 						<Modal
 							title="Setup your AI model"
@@ -524,6 +581,36 @@ const Main = () => {
 								<WebcamSkeleton />
 							)}
 						</div>
+					)}
+					{isModelModalOpen && (
+						<Modal
+							title="My Models"
+							content={renderModelModalContent}
+							style=" w-[40%]"
+							onClose={() => {
+								setIsModelModalOpen(!isModelModalOpen)
+							}}
+							// footer={() => {
+							// 	return (
+							// 		<div className="w-full flex justify-end">
+							// 			<Button
+							// 				style={' bg-primary text-white ml-[20px]'}
+							// 				title="Continue"
+							// 				loading={isCreating}
+							// 				onClick={() => {
+							// 					if (selectedModel || (projectName && apiKey && modelPath && modelType && workspace)) {
+							// 						postWeight()
+							// 					} else if (selectedModel || projectName || apiKey) {
+							// 						errorToast('All fields are required!')
+							// 					} else {
+							// 						errorToast('You need to setup your model!')
+							// 					}
+							// 				}}
+							// 			/>
+							// 		</div>
+							// 	)
+							// }}
+						/>
 					)}
 				</div>
 			</Container>

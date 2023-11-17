@@ -1,15 +1,15 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import WeightsService from '@services/WeightsServiceS'
+import WeightsService from '@services/WeightsService'
 
-const useWeight = (token) => {
-	const [isCreating, setIsCreating] = useState(false)
-	const [weight, setWeight] = useState(null)
+const useWeight = (token, id, callback) => {
+	const [isRetrieving, setIsRetrieving] = useState(false)
+	const [weights, setWeight] = useState(null)
 
 	useEffect(() => {
-		const getWeights = async ({ id, callback }) => {
-			setIsCreating(true)
+		const getWeights = async () => {
+			setIsRetrieving(true)
 
 			let responseCode
 			let retrievedWeights
@@ -26,7 +26,7 @@ const useWeight = (token) => {
 
 			switch (responseCode) {
 				case 200:
-					setWeights(retrievedWeights)
+					setWeight(retrievedWeights)
 					break
 				case 401:
 					await callback.invalidFields()
@@ -36,12 +36,12 @@ const useWeight = (token) => {
 					break
 			}
 
-			setIsCreating(false)
+			setIsRetrieving(false)
 		}
 		getWeights()
-	}, [])
+	}, [token, id, callback])
 
-	return { isCreating, weight }
+	return { isRetrieving, weights }
 }
 
 export default useWeight
