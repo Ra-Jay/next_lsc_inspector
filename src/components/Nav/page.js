@@ -28,7 +28,7 @@ function NavBar() {
 	const { user, logout } = useUserStore()
 	const { refreshToken } = useRefreshToken()
 
-	const [showModal, setShowModal] = useState(false);
+	const [showModal, setShowModal] = useState(false)
 
 	const isInLogin = router.pathname === '/login'
 	const refresh = user?.user.refresh_token
@@ -36,11 +36,11 @@ function NavBar() {
 
 	useEffect(() => {
 		const modalTimeout = setTimeout(() => {
-		  setShowModal(true);
-		}, 900000); // 15 minutes is the expiry time of the access token
+			setShowModal(true)
+		}, 900000) // 15 minutes is the expiry time of the access token
 
-		return () => clearTimeout(modalTimeout); // Clean up the timeout on component unmount
-	  }, []);
+		return () => clearTimeout(modalTimeout) // Clean up the timeout on component unmount
+	}, [])
 
 	if (isInLogin) {
 		return null
@@ -92,16 +92,25 @@ function NavBar() {
 	const handleStayLoggedIn = () => {
 		refreshToken(refresh)
 		setShowModal(false)
-		location.reload();
+		location.reload()
 	}
 
 	const renderContent = () => {
 		return (
 			<div>
-				<div className="flex flex-col gap-y-12  items-center justify-center w-[300px]">Stay logged in?
-					<div className='flex gap-x-32'>
-						<Button title="Yes" style=" w-[100px] bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white  h-[40px] justify-center" onClick={handleStayLoggedIn}></Button>
-						<Button title="Logout" style=" w-[100px] bg-primary text-white hover:bg-primary h-[40px] justify-center" onClick={() => logout()}></Button>
+				<div className="flex flex-col gap-y-12  items-center justify-center w-[300px]">
+					Stay logged in?
+					<div className="flex gap-x-32">
+						<Button
+							title="Yes"
+							style=" w-[100px] bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white  h-[40px] justify-center"
+							onClick={handleStayLoggedIn}
+						></Button>
+						<Button
+							title="Logout"
+							style=" w-[100px] bg-primary text-white hover:bg-primary h-[40px] justify-center"
+							onClick={() => logout()}
+						></Button>
 					</div>
 				</div>
 			</div>
@@ -109,7 +118,6 @@ function NavBar() {
 	}
 
 	const renderAuthorizedNav = () => {
-
 		return (
 			<div className="z-40 float-left w-full h-[80px] shadow fixed bg-[#48BF91] text-neutral-900 pl-[25px] pr-[50px]">
 				<div className="lg:block xl:block 2xl:block sm:hidden md:hidden xs:hidden">
@@ -124,13 +132,13 @@ function NavBar() {
 							className="cursor-pointer"
 						/>
 					</div>
-					<div className={'h-[80px] w-1/4 float-left flex flex-row content-center items-center justify-end '}>
+					<div className="h-[80px] w-1/4 float-left flex flex-row content-center items-center justify-end ">
 						<span className="font-bold text-white mr-2">{user?.user.username}</span>
 						<div
 							onClick={() => {
 								setDropdown(!dropdown)
 							}}
-							className="h-[80px] flex content-center items-center"
+							className="h-[80px] flex content-center items-center cursor-pointer"
 						>
 							{user && user.user.profile_image ? (
 								<Image
@@ -154,9 +162,10 @@ function NavBar() {
 					{renderDropdown()}
 				</div>
 				{showModal && (
-					<Modal title="Your session has expired!"
-					content={renderContent}
-					style=" w-[300px]"
+					<Modal
+						title="Your session has expired!"
+						content={renderContent}
+						style=" w-[300px]"
 					></Modal>
 				)}
 			</div>

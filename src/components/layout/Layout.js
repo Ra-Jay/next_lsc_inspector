@@ -11,7 +11,7 @@ import String from '@utils/string'
 
 const protectedPages = ['/dashboard', '/main', '/history', '/profile']
 
-const redirectDashboard = ['/login', '/sign-up', '/']
+const redirectDashboard = ['/login', '/sign-up', '/', '/demo', '/docs']
 
 function Homepage({ children }) {
 	const router = useRouter()
