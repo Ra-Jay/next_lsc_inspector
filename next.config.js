@@ -10,7 +10,7 @@ const nextConfig = {
 				source: '/api/v1/:path*',
 				headers: [
 					{ key: 'Access-Control-Allow-Credentials', value: 'true' },
-					{ key: 'Access-Control-Allow-Origin', value: 'https://next-lsc-inspector.vercel.app' },
+					{ key: 'Access-Control-Allow-Origin', value: process.env.EC2_PUBLIC_DNS || '*' }, // Update this line
 					{ key: 'Access-Control-Allow-Methods', value: 'GET,OPTIONS,PATCH,DELETE,POST,PUT' },
 					{
 						key: 'Access-Control-Allow-Headers',
