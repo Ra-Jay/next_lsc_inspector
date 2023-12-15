@@ -57,3 +57,4 @@ sketch
 
 # Ignore any .env file
 .env*
+package-lock.json
