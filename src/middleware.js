@@ -4,7 +4,7 @@ export function middleware() {
 	const res = NextResponse.next()
 
 	res.headers.append('Access-Control-Allow-Credentials', 'true')
-	res.headers.append('Access-Control-Allow-Origin', process.env.EC2_PUBLIC_DNS || '*' )
+	res.headers.append('Access-Control-Allow-Origin', process.env.NEXT_PUBLIC_EC2_DNS || '*')
 	res.headers.append('Access-Control-Allow-Methods', 'GET,DELETE,PATCH,POST,PUT')
 	res.headers.append(
 		'Access-Control-Allow-Headers',
