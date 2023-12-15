@@ -7,6 +7,9 @@ WORKDIR /nextjs_lsc_inspector_app
 # Copy the package.json and package-lock.json to the container
 COPY package*.json ./
 
+# Install serve for serving the static files
+RUN npm install --save-dev serve
+
 # Install the Node.js dependencies
 RUN npm install --legacy-peer-deps
 
@@ -14,7 +17,7 @@ RUN npm install --legacy-peer-deps
 COPY . .
 
 # Expose the port the app runs on
-EXPOSE 3000
+EXPOSE 80
 
 # Set the CMD to start the app
-CMD ["npm", "start"]
+CMD npx serve -s build -l 80
