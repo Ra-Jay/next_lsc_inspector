@@ -45,6 +45,7 @@ const Main = () => {
 	const [toggleButton, setToggleButton] = useState(false)
 	const [loading, setLoading] = useState(false)
 	const [isModelModalOpen, setIsModelModalOpen] = useState(false)
+	const [addNewModel, setAddNewModel] = useState(false)
 
 	const [projectName, setProjectName] = useState(null)
 	const [apiKey, setApiKey] = useState(null)
@@ -355,7 +356,7 @@ const Main = () => {
 						component={Add}
 						fontSize="small"
 					/>
-					<span>Add model</span>
+					<span onClick={() => setAddNewModel(!addNewModel)}>Add model</span>
 				</div>
 				{!isRetrieving &&
 					weights &&
@@ -637,6 +638,43 @@ const Main = () => {
 							// 		</div>
 							// 	)
 							// }}
+						/>
+					)}
+					{user.weights.length >= 1 && addNewModel && (
+						<Modal
+							title="Add new AI model"
+							content={renderContent}
+							style=" w-[40%]"
+							onClose={() => {
+								setAddNewModel(!addNewModel)
+							}}
+							footer={() => {
+								return (
+									<div className="w-full flex justify-end">
+										<Button
+											style={' bg-red-400 text-white'}
+											title="Cancel"
+											onClick={() => {
+												setAddNewModel(!addNewModel)
+											}}
+										/>
+										<Button
+											style={' bg-primary text-white ml-[20px]'}
+											title="Continue"
+											loading={isCreating}
+											onClick={() => {
+												if (selectedModel || (projectName && apiKey && modelPath && modelType && workspace)) {
+													postWeight()
+												} else if (selectedModel || projectName || apiKey) {
+													errorToast('All fields are required!')
+												} else {
+													errorToast('You need to add new your model!')
+												}
+											}}
+										/>
+									</div>
+								)
+							}}
 						/>
 					)}
 				</div>
