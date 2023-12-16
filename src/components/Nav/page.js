@@ -155,8 +155,8 @@ function NavBar() {
 									alt="profile image"
 									width={50}
 									height={50}
-									className="max-h-[50px] p-1 rounded-full ring-2 ring-gray-30 cursor-pointer"
-								/>
+									className="max-h-[50px] min-h-[50px] p-1 rounded-full ring-2 ring-gray-30 cursor-pointer object-cover"
+							  />
 							) : (
 								<SvgIcon
 									component={Person}
