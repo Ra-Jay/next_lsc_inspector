@@ -41,11 +41,11 @@ const Dashboard = () => {
 									title={'No Good'}
 									total={files?.data.length}
 								/>
-								<Card
+								{/* <Card
 									data={files?.data}
 									title={'Accuracy'}
 									total={files?.data.length}
-								/>
+								/> */}
 							</div>
 						</div>
 						<div className="flex flex-col gap-4 relative">
