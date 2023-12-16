@@ -23,6 +23,7 @@ const useAnalyze = () => {
 			)
 			analyzedImage = data
 			responseCode = status
+			setAnalyzing(false)
 
 			return { data, status }
 		} catch (error) {
@@ -38,6 +39,7 @@ const useAnalyze = () => {
 				await callback.internalError()
 				break
 		}
+		setAnalyzing(false)
 	}
 
 	return { analyzeFile, analyzing }

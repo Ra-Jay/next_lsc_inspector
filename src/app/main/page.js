@@ -28,8 +28,8 @@ import useDeleteWeight from '@hooks/useDeleteWeight'
 const Main = () => {
 	const [isModalOpen, setIsModalOpen] = useState(true)
 	const { user, isAuthenticated } = useUserStore()
-	const { uploadFile } = useUpload()
-	const { analyzeFile } = useAnalyze()
+	const { isUploading, uploadFile } = useUpload()
+	const { analyzeFile, analyzing } = useAnalyze()
 	const { isCreating, createWeight } = useCreateWeight(user?.user.access_token)
 	const { isRetrieving, weights } = useWeights(user?.user.access_token)
 	const { isDeleting, deleteWeight } = useDeleteWeight()
@@ -477,6 +477,7 @@ const Main = () => {
 										title="Upload"
 										style=" bg-primary text-white hover:bg-primary"
 										onClick={handleFileUpload}
+										loading = {isUploading}
 									/>
 								</form>
 							</div>
@@ -531,6 +532,7 @@ const Main = () => {
 										title="Analyze"
 										style=" bg-primary text-white hover:bg-primary md:ml-auto"
 										onClick={handleAnalyze}
+										loading={analyzing}
 									/>
 								</div>
 							)}
