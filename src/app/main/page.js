@@ -233,7 +233,7 @@ const Main = () => {
 								<label className="block mb-2 text-sm font-medium text-gray-900">Project Name</label>
 								<TextInput
 									type="text"
-									placeholder="lsc-inspector"
+									placeholder="project-name"
 									value={projectName}
 									onChange={(projectName) => {
 										setErrors(null)
@@ -251,7 +251,7 @@ const Main = () => {
 								<label className="block mb-2 text-sm font-medium text-gray-900">Api Key</label>
 								<TextInput
 									type="text"
-									placeholder="lnVB1Fnjsd5EdDdsnMg7"
+									placeholder="abCD1EfghjkLmNopqRs2"
 									value={apiKey}
 									onChange={(apiKey) => {
 										setErrors(null)
@@ -287,7 +287,7 @@ const Main = () => {
 								<label className="block mb-2 text-sm font-medium text-gray-900">Workspace</label>
 								<TextInput
 									type="text"
-									placeholder="cs346"
+									placeholder="workspace-name"
 									value={workspace}
 									onChange={(workspace) => {
 										setErrors(null)
@@ -305,7 +305,7 @@ const Main = () => {
 								<label className="block mb-2 text-sm font-medium text-gray-900">Model Type</label>
 								<TextInput
 									type="text"
-									placeholder="yolov5"
+									placeholder="yolov5/yolov8"
 									value={modelType}
 									onChange={(modelType) => {
 										setErrors(null)
@@ -324,7 +324,7 @@ const Main = () => {
 
 								<TextInput
 									type="text"
-									placeholder="path in your local directory"
+									placeholder="/path/to/your/parent/folders/weights/best.pt"
 									value={modelPath}
 									onChange={(modelPath) => {
 										setErrors(null)
