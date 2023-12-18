@@ -604,8 +604,9 @@ const Main = () => {
 							</div>
 							{toggleButton ? (
 								<Roboflow
-									modelName="body parts"
-									modelVersion="1"
+									apiKey={user?.weights[0].api_key || null}
+									modelName={user?.weights[0].project_name || null}
+									modelVersion={user?.weights[0].version || null}
 								/>
 							) : (
 								<WebcamSkeleton />

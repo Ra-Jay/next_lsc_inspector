@@ -6,9 +6,9 @@ const Roboflow = (props) => {
 	const canvasRef = useRef(null)
 	const [inferRunning, setInferRunning] = useState(true)
 
-	const PUBLISHABLE_ROBOFLOW_API_KEY = 'rf_5w20VzQObTXjJhTjq6kad9ubrm33'
-	const PROJECT_URL = 'egohands-public'
-	const MODEL_VERSION = 9
+	const PUBLISHABLE_ROBOFLOW_API_KEY = props.apiKey || 'rf_5w20VzQObTXjJhTjq6kad9ubrm33'
+	const PROJECT_URL = props.modelName || 'egohands-public'
+	const MODEL_VERSION = props.modelVersion || 9
 	var model
 
 	const startInfer = () => {
