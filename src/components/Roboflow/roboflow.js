@@ -9,6 +9,9 @@ const Roboflow = (props) => {
 	const PUBLISHABLE_ROBOFLOW_API_KEY = props.apiKey || 'rf_5w20VzQObTXjJhTjq6kad9ubrm33'
 	const PROJECT_URL = props.modelName || 'egohands-public'
 	const MODEL_VERSION = props.modelVersion || 9
+	console.log('Api keU: ', props.apiKey)
+	console.log('name: ', props.modelName)
+	console.log('version: ', props.modelVersion)
 	var model
 
 	const startInfer = () => {

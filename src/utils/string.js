@@ -102,7 +102,7 @@ const String = {
 		{
 			title: 'Person Model',
 			project_name: 'person-kmawf' /*process.env.HANDS_PROJECT_NAME*/,
-			api_key: 'lnVB1Fnjsd5EdDdsnMg7' /*process.env.HANDS_API_KEY*/,
+			api_key: 'rf_Dsl5UQjBexM9F4JpLJrczqATmt02' /*process.env.HANDS_API_KEY*/,
 			version: 2 /*process.env.HANDS_VERSION*/,
 			workspace: 'test-uqwt2',
 			model_type: 'yolov8',
