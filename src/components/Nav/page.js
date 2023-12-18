@@ -28,32 +28,31 @@ function NavBar() {
 	const { user, logout } = useUserStore()
 	const { refreshToken } = useRefreshToken()
 
-	const [showModal, setShowModal] = useState(false);
-	const [expired, setExpired] = useState(false);
+	const [showModal, setShowModal] = useState(false)
+	const [expired, setExpired] = useState(false)
 
 	const isInLogin = router.pathname === '/login'
 	const refresh = user?.user.refresh_token
 	configureAxios(setShowModal)
 
-
 	useEffect(() => {}, [user])
 
-	useEffect(() => {console.log(showModal)}, [showModal])
+	useEffect(() => {
+		console.log(showModal)
+	}, [showModal])
 
 	useEffect(() => {
 		const expiredTimeout = setTimeout(() => {
-		  setExpired(true);
-		  setShowModal(true); // Update showModal in NavBar
-		}, 900000);
+			setExpired(true)
+			setShowModal(true) // Update showModal in NavBar
+		}, 900000)
 
-		return () => clearTimeout(expiredTimeout);
-	  }, []);
+		return () => clearTimeout(expiredTimeout)
+	}, [])
 
 	if (isInLogin) {
 		return null
 	}
-
-
 
 	const renderDropdown = () => {
 		return (
@@ -156,7 +155,7 @@ function NavBar() {
 									width={50}
 									height={50}
 									className="max-h-[50px] min-h-[50px] p-1 rounded-full ring-2 ring-gray-30 cursor-pointer object-cover"
-							  />
+								/>
 							) : (
 								<SvgIcon
 									component={Person}
@@ -197,27 +196,12 @@ function NavBar() {
 							className="cursor-pointer"
 						/>
 						<Link
-							href="/features"
-							className="ml-[40px] mr-[20px] hover:border-b-2 border-primary hover:text-primary pb-[3px]"
-							onClick={() => setInDocs(false)}
-						>
-							Features
-						</Link>
-
-						<Link
-							href="/about-us"
-							className="mx-[20px] hover:border-b-2 border-primary hover:text-primary pb-[3px]"
-							onClick={() => setInDocs(false)}
-						>
-							About Us
-						</Link>
-						<Link
 							href="/docs"
 							className={`mx-[20px]`}
 							onClick={() => setInDocs(true)}
 						>
 							<span className={`hover:border-b-2 border-primary hover:text-primary pb-[3px] ${isInDocs ? `border-b-2 text-primary` : ``} `}>
-								Docs
+								Documentation
 							</span>
 						</Link>
 					</div>
