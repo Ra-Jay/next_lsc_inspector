@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { saveAs } from 'file-saver'
 import { SvgIcon } from '@mui/material'
-import { Add, Delete } from '@mui/icons-material'
+import { Add, Check, Delete } from '@mui/icons-material'
 
 import Container from '@components/container'
 import Button from '@components/Button/page'
@@ -31,7 +31,7 @@ const Main = () => {
 	const { isUploading, uploadFile } = useUpload()
 	const { analyzeFile, analyzing } = useAnalyze()
 	const { isCreating, createWeight } = useCreateWeight(user?.user.access_token)
-	const { isRetrieving, weights } = useWeights(user?.user.access_token)
+	const { isRetrieving, weights, fetchWeights } = useWeights(user?.user.access_token)
 	const { isDeleting, deleteWeight } = useDeleteWeight()
 
 	const [file, setFile] = useState(null)
@@ -46,6 +46,7 @@ const Main = () => {
 	const [loading, setLoading] = useState(false)
 	const [isModelModalOpen, setIsModelModalOpen] = useState(false)
 	const [addNewModel, setAddNewModel] = useState(false)
+	const [activeModel, setActiveModel] = useState(null)
 
 	const [projectName, setProjectName] = useState(null)
 	const [apiKey, setApiKey] = useState(null)
@@ -149,6 +150,7 @@ const Main = () => {
 				type: 'pre-defined',
 				callback: weightsCallbacks,
 			})
+			fetchWeights(weightsCallbacks)
 		} else {
 			await createWeight({
 				project_name: projectName,
@@ -160,6 +162,7 @@ const Main = () => {
 				type: 'custom',
 				callback: weightsCallbacks,
 			})
+			fetchWeights(weightsCallbacks)
 		}
 	}
 
@@ -173,6 +176,7 @@ const Main = () => {
 		if (weights.length >= 2) {
 			if (id) {
 				await deleteWeight({ token: user?.user.access_token, id: id, callback: deleteItemCallbacks })
+				fetchWeights(deleteItemCallbacks)
 			}
 		} else {
 			errorToast('You need at least 1 model active!')
@@ -358,29 +362,52 @@ const Main = () => {
 					/>
 					<span onClick={() => setAddNewModel(!addNewModel)}>Add model</span>
 				</div>
-				{!isRetrieving &&
-					weights &&
-					weights.map((item, index) => (
-						<div
-							key={index}
-							className="mb-6 px-[10px] py-[10px] font-bold bg-primary bg-opacity-20 border-y flex justify-between hover:bg-primary hover:bg-opacity-30 cursor-pointer"
-						>
-							<div>
-								<span>{item.project_name}</span>
-								<span className="text-primary ml-3">(active model)</span>
-							</div>
-							<SvgIcon
-								component={Delete}
-								className="hover:text-red-500 cursor-pointer"
-								onClick={() => deleteItem(item.id)}
-							/>
+				{!isRetrieving && weights && weights.length > 0 && (
+					<div
+						key={0}
+						className="mb-6 px-[10px] py-[10px] font-bold bg-primary bg-opacity-20 border-y flex justify-between hover:bg-primary hover:bg-opacity-30 cursor-pointer"
+					>
+						<div>
+							<span>{weights[0].project_name}</span>
+							<span className="text-primary ml-3">(active model)</span>
 						</div>
-					))}
+						<SvgIcon
+							component={Delete}
+							className="hover:text-red-500 cursor-pointer"
+							onClick={() => deleteItem(weights[0].id)}
+						/>
+					</div>
+				)}
 				<span className="font-bold text-gray-600">Available Models: </span>
 				<ul className="mt-2 ">
-					<li className="px-[10px] py-[10px] border-b flex justify-between cursor-pointer">
-						<span>N/A</span>
-					</li>
+					{!isRetrieving &&
+						weights &&
+						weights.length >= 2 &&
+						weights.map(
+							(item, index) =>
+								index !== 0 && (
+									<div
+										key={index}
+										className="mb-6 px-[10px] py-[10px] font-bold bg-gray-300 bg-opacity-20 border-y flex justify-between hover:bg-primary hover:bg-opacity-30 cursor-pointer"
+									>
+										<div>
+											<span>{item.project_name}</span>
+										</div>
+										<div className="">
+											<SvgIcon
+												component={Check}
+												className="hover:text-green-500 cursor-pointer mr-4"
+												onClick={() => deleteItem(item.id)}
+											/>
+											<SvgIcon
+												component={Delete}
+												className="hover:text-red-500 cursor-pointer"
+												onClick={() => deleteItem(item.id)}
+											/>
+										</div>
+									</div>
+								)
+						)}
 				</ul>
 			</div>
 		)
@@ -477,7 +504,7 @@ const Main = () => {
 										title="Upload"
 										style=" bg-primary text-white hover:bg-primary"
 										onClick={handleFileUpload}
-										loading = {isUploading}
+										loading={isUploading}
 									/>
 								</form>
 							</div>
@@ -643,7 +670,7 @@ const Main = () => {
 							// }}
 						/>
 					)}
-					{user.weights.length >= 1 && addNewModel && (
+					{user && user.weights.length >= 1 && addNewModel && (
 						<Modal
 							title="Add new AI model"
 							content={renderContent}
