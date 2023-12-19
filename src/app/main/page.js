@@ -17,7 +17,6 @@ import Roboflow from '@components/Roboflow/roboflow'
 import Skeleton from '@components/Skeleton/Skeleton'
 import Helper from '@utils/string'
 import { successToast, errorToast } from '@utils/toast'
-
 import useUserStore from '../../useStore'
 import useUpload from '@hooks/useUpload'
 import useAnalyze from '@hooks/useAnalyze'
@@ -27,7 +26,7 @@ import useDeleteWeight from '@hooks/useDeleteWeight'
 
 const Main = () => {
 	const [isModalOpen, setIsModalOpen] = useState(true)
-	const { user, isAuthenticated } = useUserStore()
+	const { user, isAuthenticated, activeWeight, setActiveWeight } = useUserStore()
 	const { isUploading, uploadFile } = useUpload()
 	const { analyzeFile, analyzing } = useAnalyze()
 	const { isCreating, createWeight } = useCreateWeight(user?.user.access_token)
@@ -150,6 +149,16 @@ const Main = () => {
 				type: 'pre-defined',
 				callback: weightsCallbacks,
 			})
+			setActiveWeight({
+				project_name: selectedModel.project_name,
+				api_key: selectedModel.api_key,
+				version: selectedModel.version,
+				workspace: selectedModel.workspace,
+				model_type: selectedModel.model_type,
+				model_path: null,
+				type: 'pre-defined',
+			})
+
 			fetchWeights(weightsCallbacks)
 		} else {
 			await createWeight({
@@ -162,6 +171,17 @@ const Main = () => {
 				type: 'custom',
 				callback: weightsCallbacks,
 			})
+			if (activeWeight == null) {
+				setActiveWeight({
+					project_name: projectName,
+					api_key: apiKey,
+					version: version,
+					workspace: workspace,
+					model_type: modelType,
+					model_path: modelPath,
+					type: 'custom',
+				})
+			}
 			fetchWeights(weightsCallbacks)
 		}
 	}
@@ -362,13 +382,10 @@ const Main = () => {
 					/>
 					<span onClick={() => setAddNewModel(!addNewModel)}>Add model</span>
 				</div>
-				{!isRetrieving && weights && weights.length > 0 && (
-					<div
-						key={0}
-						className="mb-6 px-[10px] py-[10px] font-bold bg-primary bg-opacity-20 border-y flex justify-between hover:bg-primary hover:bg-opacity-30 cursor-pointer"
-					>
+				{weights && activeWeight && (
+					<div className="mb-6 px-[10px] py-[10px] font-bold bg-primary bg-opacity-20 border-y flex justify-between hover:bg-primary hover:bg-opacity-30 cursor-pointer">
 						<div>
-							<span>{weights[0].project_name}</span>
+							<span>{activeWeight.project_name}</span>
 							<span className="text-primary ml-3">(active model)</span>
 						</div>
 						<SvgIcon
@@ -382,10 +399,10 @@ const Main = () => {
 				<ul className="mt-2 ">
 					{!isRetrieving &&
 						weights &&
-						weights.length >= 2 &&
+						weights.length >= 1 &&
 						weights.map(
 							(item, index) =>
-								index !== 0 && (
+								item.project_name !== activeWeight?.project_name && (
 									<div
 										key={index}
 										className="mb-6 px-[10px] py-[10px] font-bold bg-gray-300 bg-opacity-20 border-y flex justify-between hover:bg-primary hover:bg-opacity-30 cursor-pointer"
@@ -397,7 +414,7 @@ const Main = () => {
 											<SvgIcon
 												component={Check}
 												className="hover:text-green-500 cursor-pointer mr-4"
-												onClick={() => deleteItem(item.id)}
+												onClick={() => setActiveWeight(item)}
 											/>
 											<SvgIcon
 												component={Delete}
@@ -695,6 +712,7 @@ const Main = () => {
 											onClick={() => {
 												if (selectedModel || (projectName && apiKey && modelPath && modelType && workspace)) {
 													postWeight()
+													setAddNewModel(!addNewModel)
 												} else if (selectedModel || projectName || apiKey) {
 													errorToast('All fields are required!')
 												} else {

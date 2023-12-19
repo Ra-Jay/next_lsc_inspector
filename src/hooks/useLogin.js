@@ -29,7 +29,7 @@ const useLogin = () => {
 
 		switch (responseCode) {
 			case 200:
-				login(retrievedUser.user.access_token, retrievedUser)
+				login(retrievedUser.user.access_token, retrievedUser, retrievedUser.weights[0])
 				return retrievedUser
 				break
 			case 401:
