@@ -405,7 +405,7 @@ const Main = () => {
 								item.project_name !== activeWeight?.project_name && (
 									<div
 										key={index}
-										className="mb-6 px-[10px] py-[10px] font-bold bg-gray-300 bg-opacity-20 border-y flex justify-between hover:bg-primary hover:bg-opacity-30 cursor-pointer"
+										className="mb-6 px-[10px] py-[10px] font-bold bg-gray-300 bg-opacity-20 border-y flex justify-between hover:bg-gray-500 hover:bg-opacity-30 cursor-pointer"
 									>
 										<div>
 											<span>{item.project_name}</span>
