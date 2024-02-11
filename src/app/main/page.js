@@ -46,6 +46,8 @@ const Main = () => {
 	const [isModelModalOpen, setIsModelModalOpen] = useState(false)
 	const [addNewModel, setAddNewModel] = useState(false)
 	const [activeModel, setActiveModel] = useState(null)
+	const [showModal, setShowModal] = useState(false);
+	const [itemIdToDelete, setItemIdToDelete] = useState(null);
 
 	const [projectName, setProjectName] = useState(null)
 	const [apiKey, setApiKey] = useState(null)
