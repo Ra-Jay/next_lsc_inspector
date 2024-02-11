@@ -100,10 +100,10 @@ const Main = () => {
 		const response = await analyzeFile(
 			{
 				fileUrl: uploadedImage.url,
-				project_name: user?.weights[0].project_name || null,
-				api_key: user?.weights[0].api_key || null,
-				version: user?.weights[0].version || null,
-				weight_id: user?.weights[0].id || null,
+				project_name: activeWeight.project_name,
+				api_key: activeWeight.api_key,
+				version: activeWeight.version,
+				weight_id: activeWeight.id,
 				callback: analyzeCallbacks,
 			},
 			user?.user.access_token
