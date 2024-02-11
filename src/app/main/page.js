@@ -399,7 +399,7 @@ const Main = () => {
 						<SvgIcon
 							component={Delete}
 							className="hover:text-red-500 cursor-pointer"
-							onClick={() => deleteItem(weights[0].id)}
+							onClick={() => deleteItem(activeWeight.id)}
 						/>
 					</div>
 				)}
