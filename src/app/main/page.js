@@ -197,12 +197,18 @@ const Main = () => {
 	const deleteItem = async (id) => {
 		if (weights.length >= 2) {
 			if (id) {
-				await deleteWeight({ token: user?.user.access_token, id: id, callback: deleteItemCallbacks })
-				fetchWeights(deleteItemCallbacks)
+				setItemIdToDelete(id);
+				setShowModal(true);
 			}
 		} else {
 			errorToast('You need at least 1 model active!')
 		}
+	}
+
+	const confirmDelete = async () => {
+    await deleteWeight({ token: user?.user.access_token, id: itemIdToDelete, callback: deleteItemCallbacks })
+    fetchWeights(deleteItemCallbacks);
+    setShowModal(false);
 	}
 
 	const renderContent = () => {
