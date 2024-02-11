@@ -733,6 +733,30 @@ const Main = () => {
 							}}
 						/>
 					)}
+					<Modal show={showModal} onHide={() => setShowModal(false)} onConfirm={confirmDelete} 
+						title="Confirm Delete Model"
+						content="Deleting this model will also delete the images associated with it. Are you sure you want to delete this model?"
+						style=" w-[40%]"
+						footer={() => {
+							return (
+								<div className="w-full flex justify-end">
+									<Button
+										style={' bg-primary text-white ml-[20px]'}
+										title="Cancel"
+										onClick={() => {
+											setAddNewModel(!addNewModel)
+										}}
+									/>
+									<Button
+										style={' bg-red-400 text-white'}
+										title="Delete"
+										loading={isCreating}
+										onClick={confirmDelete}
+									/>
+								</div>
+							)
+						}}
+					/>
 				</div>
 			</Container>
 		</>
