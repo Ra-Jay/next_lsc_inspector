@@ -105,7 +105,7 @@ const Main = () => {
 				project_name: activeWeight.project_name,
 				api_key: activeWeight.api_key,
 				version: activeWeight.version,
-				weight_id: activeWeight.id,
+				weight_id: activeWeight.id || activeWeight.weight_id,
 				callback: analyzeCallbacks,
 			},
 			user?.user.access_token
