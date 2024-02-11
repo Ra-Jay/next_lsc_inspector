@@ -92,12 +92,12 @@ const String = {
 			model_type: process.env.NEXT_PUBLIC_LSC_MODEL_TYPE,
 		},
 		{
-			title: 'Hands Model',
-			project_name: process.env.NEXT_PUBLIC_HANDS_PROJECT_NAME,
-			api_key: process.env.NEXT_PUBLIC_HANDS_API_KEY,
-			version: process.env.NEXT_PUBLIC_HANDS_VERSION,
-			workspace: process.env.NEXT_PUBLIC_HANDS_WORKSPACE,
-			model_type: process.env.NEXT_PUBLIC_HANDS_MODEL_TYPE,
+			title: 'RPS Model',
+			project_name: process.env.NEXT_PUBLIC_RPS_PROJECT_NAME,
+			api_key: process.env.NEXT_PUBLIC_RPS_API_KEY,
+			version: process.env.NEXT_PUBLIC_RPS_VERSION,
+			workspace: process.env.NEXT_PUBLIC_RPS_WORKSPACE,
+			model_type: process.env.NEXT_PUBLIC_RPS_MODEL_TYPE,
 		},
 		{
 			title: 'Person Model',
