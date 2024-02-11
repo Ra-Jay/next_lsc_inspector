@@ -151,17 +151,30 @@ const Main = () => {
 				type: 'pre-defined',
 				callback: weightsCallbacks,
 			})
-			setActiveWeight({
-				project_name: selectedModel.project_name,
-				api_key: selectedModel.api_key,
-				version: selectedModel.version,
-				workspace: selectedModel.workspace,
-				model_type: selectedModel.model_type,
-				model_path: null,
-				type: 'pre-defined',
-			})
-
 			fetchWeights(weightsCallbacks)
+			let weight_id = null;
+
+			for (let weight of user.weights) {
+					if (weight.project_name === selectedModel.project_name) {
+							weight_id = weight.id;
+							break;
+					}
+			}
+
+			if (weight_id !== null) {
+				setActiveWeight({
+					project_name: selectedModel.project_name,
+					api_key: selectedModel.api_key,
+					version: selectedModel.version,
+					workspace: selectedModel.workspace,
+					model_type: selectedModel.model_type,
+					weight_id: weight_id,
+					model_path: null,
+					type: 'pre-defined',
+				})
+			} else {
+					errorToast('No models found!')
+			}
 		} else {
 			await createWeight({
 				project_name: projectName,
@@ -173,7 +186,16 @@ const Main = () => {
 				type: 'custom',
 				callback: weightsCallbacks,
 			})
+			fetchWeights(weightsCallbacks)
 			if (activeWeight == null) {
+				let weight_id = null;
+
+				for (let weight of user.weights) {
+						if (weight.project_name === selectedModel.project_name) {
+								weight_id = weight.id;
+								break;
+						}
+				}
 				setActiveWeight({
 					project_name: projectName,
 					api_key: apiKey,
@@ -181,10 +203,10 @@ const Main = () => {
 					workspace: workspace,
 					model_type: modelType,
 					model_path: modelPath,
+					weight_id: weight_id,
 					type: 'custom',
 				})
 			}
-			fetchWeights(weightsCallbacks)
 		}
 	}
 
