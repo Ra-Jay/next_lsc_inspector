@@ -210,6 +210,14 @@ const Main = () => {
     fetchWeights(deleteItemCallbacks);
     setShowModal(false);
 	}
+	const renderConfirmation = () => {
+		return (
+			<div>
+				<h1 className="font-bold text-[20px]">Are you sure you want to delete this model?</h1>
+					<span className="text-gray-400">Deleting this model will also delete the images associated with it.</span>
+			</div>
+		)
+	}
 
 	const renderContent = () => {
 		return (
@@ -733,30 +741,35 @@ const Main = () => {
 							}}
 						/>
 					)}
-					<Modal show={showModal} onHide={() => setShowModal(false)} onConfirm={confirmDelete} 
-						title="Confirm Delete Model"
-						content="Deleting this model will also delete the images associated with it. Are you sure you want to delete this model?"
-						style=" w-[40%]"
-						footer={() => {
-							return (
-								<div className="w-full flex justify-end">
-									<Button
-										style={' bg-primary text-white ml-[20px]'}
-										title="Cancel"
-										onClick={() => {
-											setAddNewModel(!addNewModel)
-										}}
-									/>
-									<Button
-										style={' bg-red-400 text-white'}
-										title="Delete"
-										loading={isCreating}
-										onClick={confirmDelete}
-									/>
-								</div>
-							)
-						}}
-					/>
+					{showModal && (
+					<Modal
+							title="Confirm Delete Model"
+							content={renderConfirmation}
+							style=" w-[40%]"
+							onClose={() => {
+								setShowModal(!showModal)
+							}}
+							footer={() => {
+								return (
+									<div className="w-full flex justify-end">
+										<Button
+											style={' bg-primary text-white ml-[20px]'}
+											title="Cancel"
+											onClick={() => {
+												setShowModal(!showModal)
+											}}
+										/>
+										<Button
+											style={' bg-red-400 text-white'}
+											title="Delete"
+											loading={isCreating}
+											onClick={confirmDelete}
+										/>
+									</div>
+								)
+							}}
+						/>
+					)}
 				</div>
 			</Container>
 		</>
