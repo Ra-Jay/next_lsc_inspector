@@ -55,6 +55,4 @@ sketch
 
 # End of https://www.toptal.com/developers/gitignore/api/nextjs,react
 
-# Ignore any .env file
-.env*
 package-lock.json
