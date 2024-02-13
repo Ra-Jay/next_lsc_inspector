@@ -9,8 +9,8 @@ const Banner = () => {
 	const router = useRouter()
 
 	return (
-		<div className="bg-white h-[100vh] float-left text-neutral-900 w-full flex items-center justify-center pt-[80px]">
-			<div className="w-1/2 pr-[20px] flex items-center justify-center flex-col gap-y-[20px]">
+		<div className="bg-white h-full md:h-[100vh]  float-left text-neutral-900 w-full flex items-center justify-center pt-[80px] flex-col mb-5 md:flex-row">
+			<div className="w-[75vw] h-full pr-[20px] flex items-center justify-center flex-col gap-y-[20px]">
 				<div className="flex bg-gray-200 pl-[10px] pr-[3px] rounded-2xl items-center self-start text-neutral-700">
 					<span>Powered by</span>
 					<div className="bg-primary ml-[10px] my-[3px] px-[10px] rounded-2xl font-bold text-neutral-700">
@@ -42,7 +42,7 @@ const Banner = () => {
 				</div>
 			</div>
 
-			<div className="w-1/2 pl-[20px] flex items-center justify-end">
+			<div className="w-full h-full pl-[20px] flex items-center justify-end">
 				<Image
 					src={BannerImage}
 					alt="LSC logo"

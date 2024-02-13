@@ -3,44 +3,44 @@
 import { useState, useEffect } from 'react'
 import WeightsService from '@services/WeightsService'
 
-const useWeights = (token) => {
-	const [isCreating, setIsCreating] = useState(false)
+const useWeights = (token, callback) => {
+	const [isRetrieving, setIsRetrieving] = useState(false)
 	const [weights, setWeights] = useState(null)
 
-	const deleteWeight = async ({ id, callback }) => {
-		setIsCreating(true)
+	// const deleteWeight = async ({ id, callback }) => {
+	// 	setIsRetrieving(true)
 
-		let responseCode
-		let createdWeight
+	// 	let responseCode
+	// 	let createdWeight
 
-		try {
-			const { status, data } = await WeightsService.delete(token, id)
+	// 	try {
+	// 		const { status, data } = await WeightsService.delete(token, id)
 
-			responseCode = status
-			createdWeight = data
-		} catch (error) {
-			console.log(error)
-			responseCode = error.response.status
-		}
+	// 		responseCode = status
+	// 		createdWeight = data
+	// 	} catch (error) {
+	// 		console.log(error)
+	// 		responseCode = error.response.status
+	// 	}
 
-		switch (responseCode) {
-			case 200:
-				await callback.success()
-				break
-			case 401:
-				await callback.invalidFields()
-				break
-			case 500:
-				await callback.internalError()
-				break
-		}
+	// 	switch (responseCode) {
+	// 		case 200:
+	// 			await callback.success()
+	// 			break
+	// 		case 401:
+	// 			await callback.invalidFields()
+	// 			break
+	// 		case 500:
+	// 			await callback.internalError()
+	// 			break
+	// 	}
 
-		setIsCreating(false)
-	}
+	// 	setIsRetrieving(false)
+	// }
 
 	useEffect(() => {
-		const getWeights = async ({ token, callback }) => {
-			setIsCreating(true)
+		const getWeights = async () => {
+			setIsRetrieving(true)
 
 			let responseCode
 			let retrievedWeights
@@ -49,7 +49,7 @@ const useWeights = (token) => {
 				const { status, data } = await WeightsService.getAll(token)
 
 				responseCode = status
-				retrievedWeights = data
+				retrievedWeights = data.data
 			} catch (error) {
 				console.log(error)
 				responseCode = error.response.status
@@ -67,13 +67,13 @@ const useWeights = (token) => {
 					break
 			}
 
-			setIsCreating(false)
+			setIsRetrieving(false)
 		}
 		getWeights()
 	}, [])
 
 	const fetchWeights = async ({ callback }) => {
-		setIsCreating(true)
+		setIsRetrieving(true)
 
 		let responseCode
 		let retrievedWeights
@@ -99,10 +99,10 @@ const useWeights = (token) => {
 				break
 		}
 
-		setIsCreating(false)
+		setIsRetrieving(false)
 	}
 
-	return { isCreating, weights, fetchWeights, deleteWeight }
+	return { isRetrieving, weights, fetchWeights }
 }
 
 export default useWeights

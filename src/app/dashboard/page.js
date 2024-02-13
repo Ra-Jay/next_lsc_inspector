@@ -41,11 +41,11 @@ const Dashboard = () => {
 									title={'No Good'}
 									total={files?.data.length}
 								/>
-								<Card
+								{/* <Card
 									data={files?.data}
 									title={'Accuracy'}
 									total={files?.data.length}
-								/>
+								/> */}
 							</div>
 						</div>
 						<div className="flex flex-col gap-4 relative">
@@ -56,7 +56,7 @@ const Dashboard = () => {
 							>
 								See all
 							</span>
-							<div className="w-full h-fit grid grid-cols-3 gap-4">
+							<div className="w-full h-fit grid grid-cols-1 gap-4 md:grid-cols-3">
 								{recentFiles &&
 									recentFiles.map((item, index) => (
 										<ResultCard

@@ -6,10 +6,9 @@ const Roboflow = (props) => {
 	const canvasRef = useRef(null)
 	const [inferRunning, setInferRunning] = useState(true)
 
-	const PUBLISHABLE_ROBOFLOW_API_KEY = 'rf_5w20VzQObTXjJhTjq6kad9ubrm33'
-	const PROJECT_URL = 'egohands-public'
-	const MODEL_VERSION = 9
-	var model
+	const PUBLISHABLE_ROBOFLOW_API_KEY = process.env.NEXT_PUBLIC_PUBLISHABLE_API_KEY
+	const PROJECT_URL = props.modelName
+	const MODEL_VERSION = props.modelVersion
 
 	const startInfer = () => {
 		setInferRunning(true)
@@ -140,7 +139,7 @@ const Roboflow = (props) => {
 				ref={webcamRef}
 				muted={true}
 				// mirrored={true}
-				className="absolute mx-auto mt-[50px] left-0 right-0 text-center z-10"
+				className="absolute mx-auto mt-[50px] left-0 right-0 text-center z-10 px-10 md:px-0"
 			/>
 			<canvas
 				ref={canvasRef}

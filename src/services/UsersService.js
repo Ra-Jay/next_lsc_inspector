@@ -13,7 +13,7 @@ const UsersService = {
             },
         }),
     editPassword: (id, token, body) =>
-        axios.put(`${BASE_URL}/${id}/password`, body, {
+        axios.put(`${BASE_URL}/${id}/password/edit`, body, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

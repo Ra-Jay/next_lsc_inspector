@@ -6,11 +6,15 @@ const useUserStore = create(
 		(set) => ({
 			token: null,
 			isAuthenticated: false,
-			login: (token, user) => {
-				set({ token, user, isAuthenticated: true })
+			activeWeight: null,
+			login: (token, user, weight) => {
+				set({ token, user, isAuthenticated: true, activeWeight: weight })
 			},
 			logout: () => {
 				set({ token: null, user: null, isAuthenticated: false })
+			},
+			setActiveWeight: (weight) => {
+				set({ activeWeight: weight })
 			},
 		}),
 		{

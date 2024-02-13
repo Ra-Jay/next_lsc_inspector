@@ -28,19 +28,27 @@ function NavBar() {
 	const { user, logout } = useUserStore()
 	const { refreshToken } = useRefreshToken()
 
-	const [showModal, setShowModal] = useState(false);
+	const [showModal, setShowModal] = useState(false)
+	const [expired, setExpired] = useState(false)
 
 	const isInLogin = router.pathname === '/login'
 	const refresh = user?.user.refresh_token
+	configureAxios(setShowModal)
+
 	useEffect(() => {}, [user])
 
 	useEffect(() => {
-		const modalTimeout = setTimeout(() => {
-		  setShowModal(true);
-		}, 900000); // 15 minutes is the expiry time of the access token
+		console.log(showModal)
+	}, [showModal])
 
-		return () => clearTimeout(modalTimeout); // Clean up the timeout on component unmount
-	  }, []);
+	useEffect(() => {
+		const expiredTimeout = setTimeout(() => {
+			setExpired(true)
+			setShowModal(true) // Update showModal in NavBar
+		}, 900000)
+
+		return () => clearTimeout(expiredTimeout)
+	}, [])
 
 	if (isInLogin) {
 		return null
@@ -92,25 +100,35 @@ function NavBar() {
 	const handleStayLoggedIn = () => {
 		refreshToken(refresh)
 		setShowModal(false)
-		location.reload();
+		location.reload()
 	}
+
 	const renderContent = () => {
 		return (
 			<div>
-				<div className="flex flex-col gap-y-4  items-center justify-center">Stay logged in?
-					<div className='flex gap-x-6'>
-						<Button title="Yes" style=" w-[100px] bg-primary text-white hover:bg-primary h-[40px] justify-center" onClick={handleStayLoggedIn}></Button>
-						<Button title="Logout" style=" w-[100px] bg-tertiary text-white hover:bg-primary h-[40px] justify-center" onClick={() => logout()}></Button>
+				<div className="flex flex-col gap-y-12  items-center justify-center w-[300px]">
+					Stay logged in?
+					<div className="flex gap-x-32">
+						<Button
+							title="Yes"
+							style=" w-[100px] bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white  h-[40px] justify-center"
+							onClick={handleStayLoggedIn}
+						></Button>
+						<Button
+							title="Logout"
+							style=" w-[100px] bg-primary text-white hover:bg-primary h-[40px] justify-center"
+							onClick={() => logout()}
+						></Button>
 					</div>
 				</div>
 			</div>
 		)
 	}
-	const renderAuthorizedNav = () => {
 
+	const renderAuthorizedNav = () => {
 		return (
 			<div className="z-40 float-left w-full h-[80px] shadow fixed bg-[#48BF91] text-neutral-900 pl-[25px] pr-[50px]">
-				<div className="lg:block xl:block 2xl:block sm:hidden md:hidden xs:hidden">
+				<div className="lg:block xl:block 2xl:block hidden md:hidden xs:hidden">
 					<div className={'w-3/4 h-[80px] float-left content-center items-center flex href-link'}>
 						<Image
 							src={WhiteLogo}
@@ -122,13 +140,13 @@ function NavBar() {
 							className="cursor-pointer"
 						/>
 					</div>
-					<div className={'h-[80px] w-1/4 float-left flex flex-row content-center items-center justify-end '}>
+					<div className="h-[80px] w-1/4 float-left flex flex-row content-center items-center justify-end ">
 						<span className="font-bold text-white mr-2">{user?.user.username}</span>
 						<div
 							onClick={() => {
 								setDropdown(!dropdown)
 							}}
-							className="h-[80px] flex content-center items-center"
+							className="h-[80px] flex content-center items-center cursor-pointer"
 						>
 							{user && user.user.profile_image ? (
 								<Image
@@ -136,7 +154,7 @@ function NavBar() {
 									alt="profile image"
 									width={50}
 									height={50}
-									className="max-h-[50px] p-1 rounded-full ring-2 ring-gray-30 cursor-pointer"
+									className="max-h-[50px] min-h-[50px] p-1 rounded-full ring-2 ring-gray-30 cursor-pointer object-cover"
 								/>
 							) : (
 								<SvgIcon
@@ -152,7 +170,11 @@ function NavBar() {
 					{renderDropdown()}
 				</div>
 				{showModal && (
-					<Modal title="Your session has expired!" content={renderContent}></Modal>
+					<Modal
+						title="Your session has expired!"
+						content={renderContent}
+						style=" w-[300px]"
+					></Modal>
 				)}
 			</div>
 		)
@@ -174,27 +196,12 @@ function NavBar() {
 							className="cursor-pointer"
 						/>
 						<Link
-							href="/features"
-							className="ml-[40px] mr-[20px] hover:border-b-2 border-primary hover:text-primary pb-[3px]"
-							onClick={() => setInDocs(false)}
-						>
-							Features
-						</Link>
-
-						<Link
-							href="/about-us"
-							className="mx-[20px] hover:border-b-2 border-primary hover:text-primary pb-[3px]"
-							onClick={() => setInDocs(false)}
-						>
-							About Us
-						</Link>
-						<Link
 							href="/docs"
 							className={`mx-[20px]`}
 							onClick={() => setInDocs(true)}
 						>
 							<span className={`hover:border-b-2 border-primary hover:text-primary pb-[3px] ${isInDocs ? `border-b-2 text-primary` : ``} `}>
-								Docs
+								Documentation
 							</span>
 						</Link>
 					</div>

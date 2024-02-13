@@ -15,7 +15,7 @@ const useDeleteFile = () => {
 				responseCode = status
 				deletedFile = data
 			} catch (error) {
-				console.error('Error retrieving file:', error)
+				console.error('Error deleting file:', error)
 				responseCode = error.response
 			}
 		} else {
@@ -24,7 +24,7 @@ const useDeleteFile = () => {
 				responseCode = status
 				deletedFile = data
 			} catch (error) {
-				console.error('Error retrieving file:', error)
+				console.error('Error deleting file:', error)
 				responseCode = error.response
 			}
 		}

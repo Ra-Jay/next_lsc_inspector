@@ -16,6 +16,7 @@ const useUpload = () => {
 
 			responseCode = status
 			fileUploaded = data
+			setIsUploading(false)
 
 			return { data, status }
 		} catch (error) {
