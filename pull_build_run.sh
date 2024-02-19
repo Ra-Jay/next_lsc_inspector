@@ -28,7 +28,7 @@ check_commits() {
         echo "Changes pulled successfully."
         echo "Stopping and removing the current container..."
         docker stop nextjs
-        docker rm 
+        docker rm nextjs
         echo "Deleting old image..."
         docker rmi $REPO_NAME:$TAG
         echo "Building new image..."
