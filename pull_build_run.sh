@@ -26,6 +26,8 @@ check_commits() {
         echo "New commits detected on $BRANCH. Pulling changes..."
         git pull $REMOTE_REPO $BRANCH &>/dev/null
         echo "Changes pulled successfully."
+        echo "Saving container logs..."
+        docker logs nextjs > nextjs.log
         echo "Stopping and removing the current container..."
         docker stop nextjs
         docker rm nextjs
@@ -46,5 +48,5 @@ check_commits() {
 # Main loop to continuously check for new commits
 while true; do
     check_commits
-    sleep 3600  # Check every 1 hour
+    sleep 10800  # Check every 3 hours
 done
